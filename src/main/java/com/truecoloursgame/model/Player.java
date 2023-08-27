@@ -1,9 +1,9 @@
-package com.truecoloursgame.truecoloursgame;
+package com.truecoloursgame.model;
 
 import lombok.Data;
 
 @Data
 public class Player {
-    private int id;
+
     private String name;
 }

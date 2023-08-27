@@ -1,4 +1,4 @@
-package com.truecoloursgame.truecoloursgame;
+package com.truecoloursgame;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
