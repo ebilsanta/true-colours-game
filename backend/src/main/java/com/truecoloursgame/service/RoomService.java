@@ -1,6 +1,7 @@
 package com.truecoloursgame.service;
 
 import com.truecoloursgame.model.Player;
+import com.truecoloursgame.repository.QuestionRepository;
 import com.truecoloursgame.storage.RoomStorage;
 import com.truecoloursgame.exception.InvalidRoomException;
 import com.truecoloursgame.exception.NotFoundException;
@@ -10,23 +11,27 @@ import com.truecoloursgame.model.RoomStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
+import com.truecoloursgame.entity.Question;
 
 @Service
 @AllArgsConstructor
 public class RoomService {
     // May need to store room in database?
+    private  QuestionRepository questionRepository;
 
     public Room createRoom(Player player) {
-        Room room = new Room();
-        room.setRoomId(UUID.randomUUID().toString());
+        String roomId = UUID.randomUUID().toString();
+        List<Question> questions = questionRepository.getRandomQuestions();
+        List<String> questionsAsStrings = new ArrayList<>();
+        for (Question question: questions) {
+            questionsAsStrings.add(question.getQuestion());
+        }
+        Room room = new Room(roomId, questionsAsStrings);
         addPlayer(room, player);
         room.setStatus(RoomStatus.WAITING);
         RoomStorage.getInstance().setRoom(room);
-        // create questions here
         return room;
     }
     // May need to return void. no point returning game

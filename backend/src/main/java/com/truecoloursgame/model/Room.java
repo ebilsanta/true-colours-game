@@ -14,9 +14,14 @@ public class Room {
     private Map<Integer, Integer> predictions = new HashMap<>();
     private Map<Integer, Boolean> playersAnswered = new HashMap<>();
     private Map<Integer, Integer> scores = new HashMap<>();
-    private List<String> questions = new ArrayList<>(Arrays.asList("value1", "value2", "value3"));
+    private List<String> questions;
     private int questionNumber = -1;
     private RoomStatus status;
+
+    public Room(String roomId, List<String> questions) {
+        this.questions = questions;
+        this.roomId = roomId;
+    }
 
     public void markPlayerAnswered(int playerId) {
         playersAnswered.put(playerId, true);
