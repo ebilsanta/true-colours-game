@@ -12,11 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@CrossOrigin(origins="*")
 @RestController
 @Slf4j
 @AllArgsConstructor
@@ -31,7 +31,6 @@ public class RoomController {
         log.info("Create room request: {}", player);
         return ResponseEntity.ok(roomService.createRoom(player));
     }
-
     @PostMapping("/join")
     public ResponseEntity<Room> join(@RequestBody JoinRequest request) throws NotFoundException, InvalidRoomException {
         log.info("Join request: {}", request);
@@ -39,7 +38,6 @@ public class RoomController {
         simpMessagingTemplate.convertAndSend("/topic/room-progress" + room.getRoomId(), room);
         return ResponseEntity.ok(room);
     }
-
     @PostMapping("/next-question")
     public ResponseEntity<Room> start(@RequestBody HostRequest request) throws NotFoundException, InvalidRoomException {
         log.info("Start request: {}", request);
@@ -61,7 +59,6 @@ public class RoomController {
         simpMessagingTemplate.convertAndSend("/topic/room-progress" + room.getRoomId(), room);
         return ResponseEntity.ok(room);
     }
-
     @PostMapping("/room-results")
     public ResponseEntity<Room> roomResults(@RequestBody HostRequest request) throws NotFoundException {
         log.info("Room results: {}", request);
@@ -70,4 +67,10 @@ public class RoomController {
         return ResponseEntity.ok(room);
     }
 
+    @GetMapping("/{roomId}")
+    public ResponseEntity<Room> getRoom(@PathVariable("roomId") String roomId) throws NotFoundException {
+        log.info("Room request: {}", roomId);
+        Room room = roomService.getRoom(roomId);
+        return ResponseEntity.ok(room);
+    }
 }

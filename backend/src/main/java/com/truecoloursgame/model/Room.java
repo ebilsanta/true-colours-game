@@ -14,6 +14,7 @@ public class Room {
     private Map<Integer, Integer> predictions = new HashMap<>();
     private Map<Integer, Boolean> playersAnswered = new HashMap<>();
     private Map<Integer, Integer> scores = new HashMap<>();
+    private Map<Integer, Integer> addedScores = new HashMap<>();
     private List<String> questions;
     private int questionNumber = -1;
     private RoomStatus status;

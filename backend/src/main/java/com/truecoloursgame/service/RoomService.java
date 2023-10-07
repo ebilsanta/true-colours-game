@@ -61,6 +61,12 @@ public class RoomService {
         Map<Integer, Integer> scores = room.getScores();
         scores.put(newPlayerId, 0);
 
+        Map<Integer, Integer> addedScores = room.getAddedScores();
+        addedScores.put(newPlayerId, 0);
+
+        Map<Integer, List<Integer>> votes = room.getVotes();
+        votes.put(newPlayerId, new ArrayList<>());
+
         room.setNewPlayerId(newPlayerId+1);
     }
 
@@ -70,6 +76,7 @@ public class RoomService {
         }
         Room room = RoomStorage.getInstance().getRooms().get(roomId);
         resetVotes(room);
+        resetPlayersAnswered(room);
         room.setQuestionNumber(room.getQuestionNumber()+1);
         room.setStatus(RoomStatus.QUESTION_IN_PROGRESS);
         RoomStorage.getInstance().setRoom(room);
@@ -81,6 +88,11 @@ public class RoomService {
         for(Map.Entry<Integer, List<Integer>> entry: votes.entrySet()) {
             entry.getValue().clear();
         }
+    }
+
+    public void resetPlayersAnswered(Room room) {
+        Map<Integer, Boolean> playersAnswered = room.getPlayersAnswered();
+        playersAnswered.replaceAll((p, v) -> false);
     }
 
     public Room answer(Answer answer) throws NotFoundException {
@@ -134,6 +146,13 @@ public class RoomService {
         return room;
     }
 
+    public Room getRoom(String roomId) throws NotFoundException {
+        if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
+            throw new NotFoundException("Room does not exist");
+        }
+        return RoomStorage.getInstance().getRooms().get(roomId);
+    }
+
     public boolean playerExists(Map<Integer, Player> players, int playerId) {
         return players.containsKey(playerId);
     }
@@ -152,6 +171,7 @@ public class RoomService {
         Map<Integer, List<Integer>> votes = room.getVotes();
         Map<Integer, Integer> predictions = room.getPredictions();
         Map<Integer, Integer> scores = room.getScores();
+        Map<Integer, Integer> addedScores = room.getAddedScores();
         // Get maxVotes
         for(Map.Entry<Integer, List<Integer>> entry: votes.entrySet()) {
             int numVotes = entry.getValue().size();
@@ -166,10 +186,15 @@ public class RoomService {
 
             if (prediction == 0 && numVotes == 0) {
                 scores.put(playerId, score + 3);
+                addedScores.put(playerId, 3);
             } else if (prediction == 1 && numVotes >= 1 && numVotes < maxVotes) {
                 scores.put(playerId, score + 1);
+                addedScores.put(playerId, 1);
             } else if (prediction == 2 && numVotes == maxVotes) {
                 scores.put(playerId, score + 3);
+                addedScores.put(playerId, 3);
+            } else {
+                addedScores.put(playerId, 0);
             }
         }
 
