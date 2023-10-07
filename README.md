@@ -34,17 +34,17 @@ Every turn,
 
 ## Screenshots
 <img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/c8c4d6c1-a81f-421a-9644-247efd2cdc70" 
-     width="240" 
-     height="494">
+     width="288" 
+     height="593">
 <img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/9e107dc8-748a-4dff-89c5-07c74118059c" 
-     width="240" 
-     height="494">
+     width="288" 
+     height="593">
 <img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/2a269eda-27b5-4992-ab46-0ec182a78462" 
-     width="240" 
-     height="494">
+     width="288" 
+     height="593">
 <img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/39dd8f52-6744-43f6-8461-9842ee3c444d" 
-     width="240" 
-     height="494">
+     width="288" 
+     height="593">
 
 ## Demo
 ### Creating and joining games
