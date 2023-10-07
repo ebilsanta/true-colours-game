@@ -32,6 +32,38 @@ Every turn,
 * You get **1** point if you correctly predict you'll get **some** of the votes.
 * And no points if you predictly wrongly!
 
+## Screenshots
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/c8c4d6c1-a81f-421a-9644-247efd2cdc70" 
+     width="240" 
+     height="494">
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/9e107dc8-748a-4dff-89c5-07c74118059c" 
+     width="240" 
+     height="494">
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/2a269eda-27b5-4992-ab46-0ec182a78462" 
+     width="240" 
+     height="494">
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/39dd8f52-6744-43f6-8461-9842ee3c444d" 
+     width="240" 
+     height="494">
+
+## Demo
+### Creating and joining games
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/fc7925b2-d0c6-48f9-a614-aba5bfe44113.gif" 
+     alt="creating and joining game" 
+     width="537" 
+     height="535">
+### Voting each round
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/d899b735-00a7-481c-aaf1-82e4f1796b66" 
+     alt="creating and joining game" 
+     width="537" 
+     height="535">
+
+### Showing results at the end of each round
+<img src="https://github.com/ebilsanta/true-colours-game/assets/101983505/209a70f9-aedc-4361-affe-fe2fe37bbeeb" 
+     alt="creating and joining game" 
+     width="537" 
+     height="535">
+
 ## Getting Started
 
 ### Dependencies
