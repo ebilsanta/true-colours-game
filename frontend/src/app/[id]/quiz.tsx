@@ -55,6 +55,12 @@ export default function Quiz({
           <Text>Waiting for players...</Text>
         </VStack>)
         : (<>
+            <Heading size="md" as="h1">
+              Your votes
+            </Heading>
+            <Text fontSize="sm" pb={4}>
+              Vote 2 people (could be the same person)
+            </Text>
             <PlayerChoices
               currentPlayer={currentPlayer}
               players={roomState.players}

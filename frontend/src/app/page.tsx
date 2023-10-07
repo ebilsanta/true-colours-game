@@ -22,7 +22,6 @@ export default function Home() {
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value);
   const handleRoomIdChange = (event: React.ChangeEvent<HTMLInputElement>) => setRoomId(event.target.value);
   const router = useRouter();
-  const[err, setErr] = useState("");
 
 
   const createRoom = (username: string) => {
@@ -42,26 +41,25 @@ export default function Home() {
       router.push(`${data.roomId}`)
       setIsLoading(false);
     })
-    .catch(err => {setErr(JSON.stringify(err))})
   }
 
   const navigateToRoom = (roomId: string) => router.push(`${roomId}`)
 
   return (
     <Box px={4}>
-      <Stack direction="column" mb={6} flexWrap="wrap" spacing={6}>
+      <Stack direction="column" mb={6} flexWrap="wrap" spacing={4}>
         <Heading textAlign="center">
           True Colours
         </Heading>
         <Heading textAlign="center" size="md">
-          Create a Room {err}
+          Create a Room 
         </Heading>
         <FormControl>
           <FormLabel pl={2}>Enter a username</FormLabel>
           <Input placeholder="Username" value={username} onChange={handleUsernameChange}/>
         </FormControl>
         <Button alignSelf="stretch" onClick={() => createRoom(username)} isLoading={isLoading}>Create room</Button>
-        <Box position='relative' padding='10'>
+        <Box position='relative' padding='4'>
           <Divider />
           <AbsoluteCenter px='4'>
             Or
@@ -75,6 +73,28 @@ export default function Home() {
           <Input placeholder="Room ID" value={roomId} onChange={handleRoomIdChange}/>
         </FormControl>
         <Button alignSelf="stretch" onClick={() => navigateToRoom(roomId)} isLoading={isLoading}>Join room</Button>
+        <Divider/>
+        <Heading textAlign="center" size="md">
+          Instructions
+        </Heading>
+        <Text >
+          Vote for the <strong>two</strong> players you think are most likely to do the thing in the question.
+        </Text>
+        <Text>
+          If they're really likely, you can give them <strong>both</strong> votes.
+        </Text>
+        <Text>
+          Then, predict how many votes you will get from others, either <strong>none</strong>, <strong>some</strong>, or <strong>most</strong> votes. 
+        </Text>
+        <Text>
+          You get <strong>3</strong> points if you correctly predict you'll get <strong>none</strong> or <strong>most</strong> votes.
+        </Text>
+        <Text>
+          You get <strong>1</strong> point if you correctly predict you'll get <strong>some</strong> votes.
+        </Text>
+        <Text>
+          And none if you predicted wrongly...
+        </Text>
       </Stack>
     </Box>
     
