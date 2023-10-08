@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
-import VoteCard from "./voteCard";
-import ScoreCard from "./scoreCard";
-import PlayersAnswered from "./playersAnswered";
-import PlayerChoices from "./playerChoices";
-import PredictionChoices from "./predictionChoices";
+import VoteCard from "./_resultsComponents/voteCard";
+import ScoreCard from "./_resultsComponents/scoreCard";
+import PlayersAnswered from "./_quizComponents/playersAnswered";
+import PlayerChoices from "./_quizComponents/playerChoices";
+import PredictionChoices from "./_quizComponents/predictionChoices";
 
 type QuizProps = {
-  selectedPlayers: number[];
+  selectedPlayers: { [key: number]: number };
   handleAddPlayer: (player: number) => void;
   handleRemovePlayer: (player: number) => void;
   handlePredictionSelect: (prediction: number) => void;
@@ -33,6 +33,11 @@ export default function Quiz({
 }: QuizProps) {
   const predictionChoices = ["None", "Some", "Most"];
 
+  const canSubmit = () => {
+    const numVotes = Object.values(selectedPlayers).reduce((acc, curr) => acc + curr, 0);
+    return numVotes == 2 && prediction != null;
+  }
+
   return (
     <Box
       display="flex"
@@ -41,7 +46,7 @@ export default function Quiz({
       justifyContent="flex-end"
       position="relative"
     >
-      <Heading as="h1" size="lg" mb={4}>
+      <Heading as="h1" size="md" mb={4}>
         {roomState.questions[roomState.questionNumber]}
       </Heading>
 
@@ -55,7 +60,7 @@ export default function Quiz({
           <Text>Waiting for players...</Text>
         </VStack>)
         : (<>
-            <Heading size="md" as="h1">
+            <Heading size="lg" as="h1">
               Your votes
             </Heading>
             <Text fontSize="sm" pb={4}>
@@ -68,7 +73,7 @@ export default function Quiz({
               handleAddPlayer={handleAddPlayer}
               handleRemovePlayer={handleRemovePlayer}
             />
-            <Heading size="md" as="h1">
+            <Heading size="lg" as="h1">
               Your prediction
             </Heading>
             <Text fontSize="sm" pb={4}>
@@ -101,14 +106,13 @@ export default function Quiz({
             isLoading={isSubmitting}
             loadingText="Submitting"
             width="100%"
-            disabled={selectedPlayers.length != 2 || prediction == null}
+            disabled={!canSubmit}
             onClick={() => handleVote()}
           >
             Confirm Choice
           </Button>
         )
-        }
-        
+        } 
       </Box>
     </Box>
   );

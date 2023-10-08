@@ -45,7 +45,7 @@ declare global {
 
   type RoomState = {
     roomState: RoomStateSchema | null;
-    selectedPlayers: number[];
+    selectedPlayers: { [key: number]: number };
     isSubmitting: boolean;
     prediction: number | null;
     currentPlayer: number | null;

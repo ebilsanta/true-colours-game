@@ -15,6 +15,8 @@ import {
 
 import { useRouter } from 'next/navigation'
 
+import { RoomAPI } from "./api/RoomAPI";
+
 export default function Home() {
   const [username, setUsername] = useState("");
   const [roomId, setRoomId] = useState("");
@@ -26,21 +28,26 @@ export default function Home() {
 
   const createRoom = (username: string) => {
     setIsLoading(true);
-    console.log(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/create`)
-    fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/create`,  {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({name: username})
-    })
-    .then(res => res.json())
+    RoomAPI.createRoom(username)
     .then(data => {
-      console.log(data)
-      sessionStorage.setItem("trueColoursData", JSON.stringify({roomId: data.roomId, playerId: 0}))
+      console.log(data);
+      sessionStorage.setItem("trueColoursData", JSON.stringify({roomId: data.roomId, playerId: 0}));
       router.push(`${data.roomId}`)
-      setIsLoading(false);
     })
+    .catch(err => {console.log(err)})
+    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/create`,  {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({name: username})
+    // })
+    // .then(res => res.json())
+    // .then(data => {
+    //   console.log(data)
+    //   sessionStorage.setItem("trueColoursData", JSON.stringify({roomId: data.roomId, playerId: 0}))
+    //   router.push(`${data.roomId}`)
+    // })
   }
 
   const navigateToRoom = (roomId: string) => router.push(`${roomId}`)
@@ -56,7 +63,7 @@ export default function Home() {
         </Heading>
         <FormControl>
           <FormLabel pl={2}>Enter a username</FormLabel>
-          <Input placeholder="Username" value={username} onChange={handleUsernameChange}/>
+          <Input placeholder="Username" value={username} onChange={handleUsernameChange} autoComplete="off"/>
         </FormControl>
         <Button alignSelf="stretch" onClick={() => createRoom(username)} isLoading={isLoading}>Create room</Button>
         <Box position='relative' padding='4'>
@@ -70,7 +77,7 @@ export default function Home() {
         </Heading>
         <FormControl>
           <FormLabel pl={2}>Enter Room ID</FormLabel>
-          <Input placeholder="Room ID" value={roomId} onChange={handleRoomIdChange}/>
+          <Input placeholder="Room ID" value={roomId} onChange={handleRoomIdChange} autoComplete="off"/>
         </FormControl>
         <Button alignSelf="stretch" onClick={() => navigateToRoom(roomId)} isLoading={isLoading}>Join room</Button>
         <Divider/>

@@ -3,13 +3,10 @@ import {
   Button,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   Input,
-  FormHelperText,
   Heading,
   Stack
 } from '@chakra-ui/react'
-import {MdCheckCircleOutline} from 'react-icons/md'
 
 type JoinRoomProps = {
   handleJoinRoom: (username: string) => void;
@@ -26,7 +23,7 @@ export default function JoinRoom({handleJoinRoom}: JoinRoomProps) {
       </Heading>
       <FormControl isRequired>
         <FormLabel pl={2}>Enter a username</FormLabel>
-        <Input placeholder="username" value={username} onChange={handleUsernameChange}/>
+        <Input placeholder="username" autoComplete="off" value={username} onChange={handleUsernameChange}/>
       </FormControl>
       <Button alignSelf="stretch" onClick={() => handleJoinRoom(username)}>Enter room</Button>
     </Stack>

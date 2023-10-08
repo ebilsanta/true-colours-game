@@ -6,7 +6,7 @@ import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 type PlayersChoicesProps = {
   players: Players | null;
   currentPlayer: number;
-  selectedPlayers: number[];
+  selectedPlayers: { [key: number]: number };
   handleAddPlayer: (player: number) => void;
   handleRemovePlayer: (player: number) => void;
 }

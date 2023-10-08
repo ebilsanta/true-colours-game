@@ -10,8 +10,8 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-import PlayerCard from "./playerCard";
-import CopyToClipboardButton from "./copyToClipboardButton";
+import PlayerCard from "./_waitingRoomComponents/playerCard";
+import CopyToClipboardButton from "./_waitingRoomComponents/copyToClipboardButton";
 
 type WaitingRoomProps = {
   roomState: RoomStateSchema;

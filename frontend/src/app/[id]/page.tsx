@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import React from "react";
+import { Box } from "@chakra-ui/react";
 
 import useRoomState from "./useRoom";
 import Results from "./results";

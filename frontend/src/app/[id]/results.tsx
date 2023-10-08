@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
-import VoteCard from "./voteCard";
-import ScoreCard from './scoreCard';
+import VoteCard from "./_resultsComponents/voteCard";
+import ScoreCard from './_resultsComponents/scoreCard';
 
 type ResultsProps = {
   players: Players;
@@ -45,6 +45,9 @@ export default function Results({
   return (
     <Flex direction="column" h="84vh" >
       <Flex overflowY="auto" direction="column" flex="1">
+        <Heading as="h1" size="md" mb={4}>
+          {roomState.questions[roomState.questionNumber]}
+        </Heading>
         <Heading as="h3" size="lg" p={2}>
           Votes
         </Heading>
@@ -69,7 +72,7 @@ export default function Results({
             })}
         </VStack>
         <Heading as="h3" size="lg" p={2}>
-          Score
+          Current Scores
         </Heading>
         <VStack flex="1">
           {sortedScorePlayers.map((id) => (
