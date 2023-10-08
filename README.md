@@ -1,5 +1,5 @@
-# True Colours Digital
-True Colours party game clone using WebSockets for real-time gameplay.  
+# True Colours Clone
+True Colours game clone using WebSockets for real-time gameplay.  
 ### Features
 * Real-time updates to client devices using WebSockets with SpringBoot
 * Consistent, mobile-friendly responsive UI using ChakraUI
