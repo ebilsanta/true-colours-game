@@ -13,7 +13,7 @@ const useRoomState = (): RoomState => {
 
   const handleAddPlayer = (playerId: number) => {
     const totalVotes = Object.values(selectedPlayers).reduce((a, b) => a + b, 0);
-    if (totalVotes < 2 && !selectedPlayers[playerId] || selectedPlayers[playerId] < 2) {
+    if (totalVotes < 2) {
       setSelectedPlayers(prevState => ({
         ...prevState,
         [playerId]: (prevState[playerId] || 0) + 1,
@@ -38,26 +38,14 @@ const useRoomState = (): RoomState => {
     }
   }
 
-
   const handleJoinRoom = (username: string) => {
     RoomAPI.joinRoom(username, urlRoomId)
     .then((data) => {
       setCurrentPlayer(data.newPlayerId - 1); 
       setRoomState(data);
+      sessionStorage.setItem("trueColoursData", JSON.stringify({roomId: urlRoomId, playerId: data.newPlayerId - 1}));
     })
     .catch(err => console.log(err));
-    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/join`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ player: {name: username}, roomId:  urlRoomId.substring(1) }),
-    // })
-    // .then((res) => res.json())
-    // .then((data) => {
-    //   setCurrentPlayer(data.newPlayerId - 1); 
-    //   setRoomState(data);
-    // })
   }
 
   const handleNextQuestion = () => {
@@ -66,28 +54,10 @@ const useRoomState = (): RoomState => {
       console.log(data);
     })
     .catch((err) => {console.log(err)})
-
-    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/next-question`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({roomId:  urlRoomId }),
-    // })
-    // .then((res) => res.json())
-    // .then((data) => {
-    //   console.log(data);
-    // })
   }
 
   const handleVote = () => {
     setIsSubmitting(true);
-    // const votes = []
-    // for (const [key, value] of Object.entries(selectedPlayers)) {
-    //   for (let i = 0; i < value; i++) {
-    //     votes.push(key);
-    //   }
-    // }
     RoomAPI.vote(urlRoomId, currentPlayer!, prediction!, selectedPlayers)
     .then((data) => {
       setSelectedPlayers([]);
@@ -95,42 +65,12 @@ const useRoomState = (): RoomState => {
       setIsSubmitting(false);
     })
     .catch((err) => {console.log(err)});
-
-    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/answer`, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     roomId:  urlRoomId.substring(1), 
-    //     playerId: currentPlayer, 
-    //     prediction: prediction,
-    //     votedPlayer1Id: votes[0], 
-    //     votedPlayer2Id: votes[1]
-    //   }),
-    // })
-    // .then(() => {
-    //   setSelectedPlayers([]);
-    //   setPrediction(null);
-    //   setIsSubmitting(false);
-    // })
   }
 
   const handleShowResults = () => {
     RoomAPI.showResults(urlRoomId)
     .then((data) => {console.log(data)})
     .catch((err) => {console.log(err)});
-    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/question-results`, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     roomId:  urlRoomId.substring(1), 
-    //   }),
-    // })
-    // .then((res) => res.json())
-    // .then((data) => {console.log(data)})
   }
 
 
@@ -152,16 +92,7 @@ const useRoomState = (): RoomState => {
       setRoomState(data);
       initializeWebSocketConnection(data.roomId, setRoomState);
     })
-    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room${urlRoomId}`, {
-    //   method: "GET"
-    // })
-    // .then((res) => res.json())
-    // .then((data) => {
-    //   console.log(data)
-    //   setRoomState(data); 
-    //   initializeWebSocketConnection(data.roomId, setRoomState);
-      
-    // })
+    .catch((err) => {console.log(err)});
   }, []);
 
   return {

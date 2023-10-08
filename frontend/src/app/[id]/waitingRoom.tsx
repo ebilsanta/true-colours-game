@@ -41,9 +41,7 @@ export default function WaitingRoom({
         <Text fontSize="md" fontWeight="medium" mb={2}>
           Share the room ID with your friends!
         </Text>
-        <CopyToClipboardButton
-          text={roomState.roomId}
-        />
+        <CopyToClipboardButton text={roomState.roomId} />
       </Box>
       <Stack spacing={4} flex="1" overflowY="auto">
         {Object.keys(players).map((playerId) => (

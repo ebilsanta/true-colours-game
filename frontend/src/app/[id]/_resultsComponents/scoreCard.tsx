@@ -21,7 +21,7 @@ type AddedScoreMapping = {
 }
 
 const predictionMapping = ["None", "Some", "Most"];
-const predictionColorMapping = ["blue", "pink", "yellow"];
+const predictionColorMapping = ["yellow", "orange", "red"];
 const addedScoreColorMapping: AddedScoreMapping = { 0: "red", 1: "yellow", 3: "green" };
 
 export default function ScoreCard({
@@ -35,13 +35,13 @@ export default function ScoreCard({
       <Flex px={4} py={2}>
         <Text fontWeight="bold" flexGrow={1}>
           {name}
-          <Badge ml="1" colorScheme={predictionColorMapping[prediction]}>
+          <Badge ml="1" colorScheme={predictionColorMapping[prediction]} variant="outline">
             {predictionMapping[prediction]}
           </Badge>
         </Text>
 
         <Box>
-          <Badge mr="2" colorScheme={addedScoreColorMapping[addedScore]}>
+          <Badge mr="2" colorScheme={addedScoreColorMapping[addedScore]} variant="solid">
             +{addedScore}
           </Badge>
             {score}

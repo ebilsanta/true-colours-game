@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 
 import useRoomState from "./useRoom";
 import Results from "./results";
@@ -21,47 +21,56 @@ export default function Page() {
     handleJoinRoom,
     handleNextQuestion,
     handleVote,
-    handleShowResults
+    handleShowResults,
   } = useRoomState();
+
+  if (roomState == null) {
+    return (
+      <Flex height="100vh" alignItems="center" justifyContent="center">
+        <Heading textAlign="center" size="lg">
+          Error loading room
+        </Heading>
+      </Flex>
+    );
+  }
 
   return (
     <Box px={4}>
-      {
-        roomState == null ? null : 
-        currentPlayer == null ?
-        <JoinRoom
-          handleJoinRoom={handleJoinRoom}
-        ></JoinRoom>
-        :
-        roomState.status == "WAITING" ? <WaitingRoom roomState={roomState} currentPlayer={currentPlayer} handleStartGame={handleNextQuestion}/>
-        : roomState.status == "QUESTION_RESULTS" ? (
-          <Results
-            addedScores={roomState.addedScores}
-            players={roomState.players}
-            votes={roomState.votes}
-            predictions={roomState.predictions}
-            scores={roomState.scores}
-            roomState={roomState}
-            currentPlayer={currentPlayer}
-            handleNextQuestion={handleNextQuestion}
-          />
-        ) : roomState.status == "QUESTION_IN_PROGRESS" || roomState.status == "QUESTION_COMPLETED" ?
-        (
-          <Quiz
-            currentPlayer={currentPlayer}
-            roomState={roomState}
-            selectedPlayers={selectedPlayers}
-            handleAddPlayer={handleAddPlayer}
-            handleRemovePlayer={handleRemovePlayer}
-            handlePredictionSelect={handlePredictionSelect}
-            handleShowResults={handleShowResults}
-            handleVote={handleVote}
-            prediction={prediction}
-            isSubmitting={isSubmitting}
-          />
-        ) : null
-      }
+      {currentPlayer == null ? (
+        <JoinRoom handleJoinRoom={handleJoinRoom} />
+      ) : roomState.status == "WAITING" ? (
+        <WaitingRoom
+          roomState={roomState}
+          currentPlayer={currentPlayer}
+          handleStartGame={handleNextQuestion}
+        />
+      ) : ["QUESTION_IN_PROGRESS", "QUESTION_COMPLETED"].includes(
+          roomState.status!
+        ) ? (
+        <Quiz
+          currentPlayer={currentPlayer}
+          roomState={roomState}
+          selectedPlayers={selectedPlayers}
+          handleAddPlayer={handleAddPlayer}
+          handleRemovePlayer={handleRemovePlayer}
+          handlePredictionSelect={handlePredictionSelect}
+          handleShowResults={handleShowResults}
+          handleVote={handleVote}
+          prediction={prediction}
+          isSubmitting={isSubmitting}
+        />
+      ) : roomState.status == "QUESTION_RESULTS" ? (
+        <Results
+          addedScores={roomState.addedScores}
+          players={roomState.players}
+          votes={roomState.votes}
+          predictions={roomState.predictions}
+          scores={roomState.scores}
+          roomState={roomState}
+          currentPlayer={currentPlayer}
+          handleNextQuestion={handleNextQuestion}
+        />
+      ) : null}
     </Box>
-    
   );
 }

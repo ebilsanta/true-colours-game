@@ -12,7 +12,7 @@ export default function VoteCard({name, voters}: ResultsCardProps) {
       <CardBody my={0} py={2}>
         <Text fontWeight='bold'>
           {name}
-          <Badge ml='1' colorScheme='teal'>
+          <Badge ml='1' colorScheme='teal' variant="solid" >
             {voters.length}
           </Badge>
         </Text>
@@ -22,6 +22,8 @@ export default function VoteCard({name, voters}: ResultsCardProps) {
               <Badge
                 key={i}
                 size="xs"
+                variant="outline"
+                textTransform="lowercase"
               >
                 {voter}
               </Badge>
