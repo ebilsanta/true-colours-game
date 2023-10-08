@@ -81,11 +81,11 @@ git clone https://github.com/ebilsanta/true-colours-game
 
 ### Setup
 ###### Setting Environment Variables
-* Backend - set database url in backend/src/main/application.properties
+* Backend - set spring.datasource.url in backend/src/main/application.properties
 * Frontend - set your localhost IP as NEXT_PUBLIC_BASE_API_URL in frontend/.env.sample (use this if you want to access the application from other devices)
 
 ###### Populating database
-* You can run the sql script questions.sql to populate the `question` table.
+* Questions are populated automatically when Springboot is started, You can also run the sql script questions.sql to populate the `question` table.
 
 ### Initializing backend without IDE
 If you have an IDE like IntelliJ you should be able to run it easily. Else, you can follow these instructions. 
@@ -94,7 +94,7 @@ If you have an IDE like IntelliJ you should be able to run it easily. Else, you 
 cd backend
 ```
 
-* Make the gradlew script executable
+* Make the gradlew script executable (Unix/Linux/macOS)
 ```
 chmod +x gradlew
 ```
@@ -131,7 +131,20 @@ localhost:3000
 
 ## Roadmap/To-do
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+### Backend
+###### Functional
+* Players can quit room
+* Host can end/close room
+###### Non-functional
+* Use Redis instead of memory for storing room state
+* Expire rooms and clear from memory
+* Refactor code - RoomService is not ideal
+* Explore better user session storage - currently stored on client sessionStorage
+
+### Frontend
+###### Functional
+* Users can quit rooms
+* Users can end room and see final scores
+###### Non-functional
+* Switch standard pages to use server-side rendering
+
