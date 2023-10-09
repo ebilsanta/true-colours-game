@@ -39,7 +39,9 @@ public class QuestionsDatabaseLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (questionRepository.count() == 0) {
             for (String questionStr: questions) {
-                questionRepository.save(new Question(questionStr));
+                Question question = new Question();
+                question.setQuestion(questionStr);
+                questionRepository.save(question);
             }
         }
     }
