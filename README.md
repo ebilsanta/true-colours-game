@@ -88,7 +88,8 @@ spring.datasource.url=jdbc:mysql://localhost:3306/true_colours
 spring.datasource.drive-class-name=com.mysql.cj.jdbc.Driver
 ```
 But you may choose to use a different database and url. 
-* Frontend - set your localhost IP as NEXT_PUBLIC_BASE_API_URL in frontend/.env.sample (use this if you want to access the application from other devices)
+* Rename frontend/.env.sample to .env.local
+* Frontend - set your localhost IP (eg. 192.168.1.105) as NEXT_PUBLIC_BASE_API_URL (use this if you want to access the application from other devices)
 
 ###### Setting up database
 * Start up your database and create the schema to use, eg. MySQL and true_colours schema etc. 
