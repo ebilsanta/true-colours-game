@@ -81,13 +81,20 @@ git clone https://github.com/ebilsanta/true-colours-game
 
 ### Setup
 ###### Setting Environment Variables
-* Backend - set spring.datasource.url in backend/src/main/application.properties
+* Backend - set spring.datasource.url and spring.datasource.drive-class-name in backend/src/main/application.properties
+By default, they are these values:
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/true_colours
+spring.datasource.drive-class-name=com.mysql.cj.jdbc.Driver
+```
+But you may choose to use a different database and url. 
 * Frontend - set your localhost IP as NEXT_PUBLIC_BASE_API_URL in frontend/.env.sample (use this if you want to access the application from other devices)
 
-###### Populating database
+###### Setting up database
+* Start up your database and create the schema to use, eg. MySQL and true_colours schema etc. 
 * Questions are populated automatically when Springboot is started, You can also run the sql script questions.sql to populate the `question` table.
 
-### Initializing backend without IDE
+### Initializing backend
 If you have an IDE like IntelliJ you should be able to run it easily. Else, you can follow these instructions. 
 * Change directory
 ```
@@ -146,5 +153,6 @@ localhost:3000
 * Users can quit rooms
 * Users can end room and see final scores
 ###### Non-functional
-* Switch standard pages to use server-side rendering
+* Use static generation for main page
+* Use server-side rendering for initial room loads
 
