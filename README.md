@@ -148,12 +148,16 @@ localhost:3000
 * Expire rooms and clear from memory
 * Refactor code - RoomService is not ideal
 * Explore better user session storage - currently stored on client sessionStorage
+* Deploy
 
 ### Frontend
 ###### Functional
 * Users can quit rooms
 * Users can end room and see final scores
+* Show question number
+* Show results immediately after everyone has voted
 ###### Non-functional
 * Use static generation for main page
 * Use server-side rendering for initial room loads
+* Deploy 
 
