@@ -17,7 +17,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Install pack CLI via the official buildpack Action
         uses: buildpacks/github-actions/setup-pack@v4.8.1
