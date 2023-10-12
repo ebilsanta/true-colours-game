@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+application.properties
+
+### Generated for deployment ###
+fly.toml
+.dockerignore
+
