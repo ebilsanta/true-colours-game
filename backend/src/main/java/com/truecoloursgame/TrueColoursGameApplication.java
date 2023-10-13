@@ -10,7 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class TrueColoursGameApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TrueColoursGameApplication.class, args);
+        try {
+		    SpringApplication.run(TrueColoursGameApplication.class, args);
+        } catch (Throwable e) {
+            e.printStackTrace(); 
+        } 
 	}
 
 }
