@@ -32,8 +32,39 @@ public class QuestionsDatabaseLoader implements CommandLineRunner {
         "Who is the most likely to survive in the wilderness?",
         "Who is the best at keeping secrets?",
         "Who is the most stylish?",
-        "Who would make the best superhero?"
+        "Who would make the best superhero?",
+        "Who is the most likely to become a famous author?",
+        "Who has the best taste in music?",
+        "Who is the most environmentally conscious?",
+        "Who is the most likely to win a reality TV show?",
+        "Who is the most organized?",
+        "Who is the most compassionate?",
+        "Who would excel in a competitive cooking show?",
+        "Who has the best sense of direction?",
+        "Who is the most likely to become a successful entrepreneur?",
+        "Who would throw the most extravagant birthday party?",
+        "Who is the most charitable?",
+        "Who is the most artistic?",
+        "Who is the most likely to adopt a dozen pets?",
+        "Who has the most infectious laugh?",
+        "Who is the most diplomatic?",
+        "Who would excel in a game of strategy?",
+        "Who has the best fashion sense?",
+        "Who is the most likely to perform at an open mic night?",
+        "Who is the most tech-averse?",
+        "Who is the most adventurous eater?",
+        "Who is the most likely to organize a surprise party?",
+        "Who is the most resourceful in a crisis?",
+        "Who is the most likely to become a world-record holder?",
+        "Who has the best sense of humor?",
+        "Who is the most likely to become a professional athlete?",
+        "Who is the most skilled at DIY projects?",
+        "Who is the most likely to become a famous musician?",
+        "Who is the most knowledgeable about history?",
+        "Who would be the best travel companion for an around-the-world trip?",
+        "Who is the most likely to start their own charity?"
     };
+
 
     @Override
     public void run(String... args) throws Exception {

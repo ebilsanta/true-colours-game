@@ -29,8 +29,6 @@ export default function PlayerChoices({
     <VStack spacing={4} flex="1" overflowY="auto">
       {Object.keys(players).map((id) => {
         const playerId = Number(id);
-
-        if (playerId !== currentPlayer) {
           return (
             <Stack
               key={id}
@@ -57,9 +55,6 @@ export default function PlayerChoices({
               </HStack>
             </Stack>
           );
-        }
-
-        return null;
       })}
     </VStack>
   );

@@ -9,7 +9,6 @@ import java.util.List;
 public interface QuestionRepository extends CrudRepository<Question, Integer> {
     @Query(nativeQuery = true, value = """
             SELECT * FROM question
-            ORDER BY RAND()
-            LIMIT 15;""")
+            ORDER BY RAND();""")
     List<Question> getRandomQuestions();
 }
