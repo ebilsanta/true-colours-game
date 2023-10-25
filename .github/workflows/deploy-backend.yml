@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - backend
+    paths-ignore:
+      - 'frontend/**'
 
 jobs:
   autodeploy:
@@ -30,15 +30,13 @@ jobs:
         run: |
           pack build ghcr.io/ebilsanta/true-colours-backend:latest \
               --builder paketobuildpacks/builder:tiny \
-              --buildpack paketo-buildpacks/java-native-image \
+              --buildpack paketo-buildpacks/java-native-image@8.0.0 \
               --path "./backend" \
               --env "BP_OCI_SOURCE=https://github.com/ebilsanta/true-colours-game" \
               --env "BP_JVM_VERSION=17" \
               --env "BP_NATIVE_IMAGE=true" \
               --cache-image ghcr.io/ebilsanta/true-colours-backend-paketo-cache-image:latest \
               --publish
-              
-              
               
       - name: Install flyctl via https://github.com/superfly/flyctl-actions
         uses: superfly/flyctl-actions/setup-flyctl@master
