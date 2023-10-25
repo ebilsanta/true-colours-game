@@ -13,6 +13,7 @@ public class TrueColoursGameApplication {
         try {
 		    SpringApplication.run(TrueColoursGameApplication.class, args);
         } catch (Throwable e) {
+            System.out.println("Error");
             e.printStackTrace(); 
         } 
 	}
