@@ -1,6 +1,11 @@
 name: autodeploy
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - backend
 
 jobs:
   autodeploy:
