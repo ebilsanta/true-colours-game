@@ -1,4 +1,4 @@
-name: autodeploy
+name: Fly.io Deployment for Backend
 
 on:
   push:
@@ -30,11 +30,12 @@ jobs:
         run: |
           pack build ghcr.io/ebilsanta/true-colours-backend:latest \
               --builder paketobuildpacks/builder:tiny \
-              --buildpack paketo-buildpacks/java-native-image@7.6.0 \
+              --buildpack paketo-buildpacks/java-native-image@7.15.0 \
               --path "./backend" \
               --env "BP_OCI_SOURCE=https://github.com/ebilsanta/true-colours-game" \
               --env "BP_JVM_VERSION=17" \
               --env "BP_NATIVE_IMAGE=true" \
+              --env "BP_NATIVE_IMAGE_BUILD_ARGUMENTS=--allow-incomplete-classpath" \
               --cache-image ghcr.io/ebilsanta/true-colours-backend-paketo-cache-image:latest \
               --publish
               
