@@ -15,6 +15,7 @@ export default function Page() {
     isSubmitting,
     prediction,
     currentPlayer,
+    loadingMsg,
     handleAddPlayer,
     handleRemovePlayer,
     handlePredictionSelect,
@@ -28,7 +29,7 @@ export default function Page() {
     return (
       <Flex height="100vh" alignItems="center" justifyContent="center">
         <Heading textAlign="center" size="lg">
-          Error loading room
+          {loadingMsg}
         </Heading>
       </Flex>
     );

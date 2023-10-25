@@ -49,6 +49,7 @@ declare global {
     isSubmitting: boolean;
     prediction: number | null;
     currentPlayer: number | null;
+    loadingMsg: string;
     handleAddPlayer: (player: number) => void;
     handleRemovePlayer: (player: number) => void;
     handlePredictionSelect: (choice: number) => void;
