@@ -34,7 +34,7 @@ jobs:
               --path "./backend" \
               --env "BP_OCI_SOURCE=https://github.com/ebilsanta/true-colours-game" \
               --env "BP_NATIVE_IMAGE=true" \
-              --env "BP_NATIVE_IMAGE_BUILD_ARGUMENTS=--allow-incomplete-classpath" \
+              --env "BP_JVM_VERSION=17"
               --cache-image ghcr.io/ebilsanta/true-colours-backend-paketo-cache-image:latest \
               --publish
               

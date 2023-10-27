@@ -35,25 +35,12 @@ export default function Home() {
       router.push(`${data.roomId}`)
     })
     .catch(err => {console.log(err)})
-    // fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/create`,  {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({name: username})
-    // })
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log(data)
-    //   sessionStorage.setItem("trueColoursData", JSON.stringify({roomId: data.roomId, playerId: 0}))
-    //   router.push(`${data.roomId}`)
-    // })
   }
 
   const navigateToRoom = (roomId: string) => router.push(`${roomId}`)
 
   return (
-    <Box px={4}>
+    <Box px={4} maxW="2xl">
       <Stack direction="column" mb={6} flexWrap="wrap" spacing={4}>
         <Heading textAlign="center">
           True Colours

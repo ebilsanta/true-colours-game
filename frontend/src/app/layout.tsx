@@ -1,4 +1,4 @@
-import { ColorModeScript } from "@chakra-ui/react";
+import { ColorModeScript, Box } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
@@ -23,7 +23,9 @@ export default function RootLayout({
       <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
         <Providers>
           <ColorModeSwitcher/>
-          {children}
+          <Box display="flex" justifyContent="center">
+            {children}
+          </Box>
         </Providers>
       </body>
     </html>

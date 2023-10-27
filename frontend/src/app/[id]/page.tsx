@@ -36,7 +36,7 @@ export default function Page() {
   }
 
   return (
-    <Box px={4}>
+    <Box px={4} maxW="2xl" flexGrow="1">
       {currentPlayer == null ? (
         <JoinRoom handleJoinRoom={handleJoinRoom} />
       ) : roomState.status == "WAITING" ? (
