@@ -30,7 +30,7 @@ jobs:
         run: |
           pack build ghcr.io/ebilsanta/true-colours-backend:latest \
               --builder paketobuildpacks/builder:tiny \
-              --buildpack paketo-buildpacks/java-native-image@6.0.0 \
+              --buildpack paketo-buildpacks/java-native-image@7.0.0 \
               --path "./backend" \
               --env "BP_OCI_SOURCE=https://github.com/ebilsanta/true-colours-game" \
               --env "BP_NATIVE_IMAGE=true" \
