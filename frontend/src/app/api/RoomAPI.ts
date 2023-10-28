@@ -9,7 +9,7 @@ export const RoomAPI = {
 
   joinRoom: async function (username: string, urlRoomId: string) {
     try {
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/join`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/join`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const RoomAPI = {
 
   nextQuestion: async function (urlRoomId: string) {
     try {
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/next-question`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/next-question`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const RoomAPI = {
         }
       }
 
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/answer`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/answer`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export const RoomAPI = {
 
   showResults: async function (urlRoomId: string) {
     try {
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/question-results`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/question-results`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const RoomAPI = {
 
   getRoomData: async function (urlRoomId: string) {
     try {
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/${urlRoomId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/${urlRoomId}`, {
         method: "GET"
       });
 
@@ -114,7 +114,7 @@ export const RoomAPI = {
   },
   createRoom: async function (username: string) {
     try {
-      const response = await fetch(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/room/create`,  {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/create`,  {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

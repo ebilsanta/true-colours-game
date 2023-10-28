@@ -4,7 +4,7 @@ import Stomp from 'stompjs';
 let stompClient;
 
 const initializeWebSocketConnection = (roomId, handler) => {
-  const socket = new SockJS(`http://${process.env.NEXT_PUBLIC_BASE_API_URL}:8080/answer`); 
+  const socket = new SockJS(`${process.env.NEXT_PUBLIC_BASE_API_URL}/answer`); 
 
   stompClient = Stomp.over(socket);
   stompClient.connect({}, () => {
