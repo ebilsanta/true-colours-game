@@ -1,9 +1,11 @@
 # True Colours Clone
 True Colours game clone using WebSockets for real-time gameplay.  
+Check it out here! https://true-colours-tl.vercel.app/
 ### Features
 * Real-time updates to client devices using WebSockets with SpringBoot
 * Consistent, mobile-friendly responsive UI using ChakraUI
 * Typesafe frontend development with Typescript
+* CI/CD pipeline for code changes to backend and frontend repositories
 
 Built with 
 
@@ -139,25 +141,19 @@ localhost:3000
 
 ## Roadmap/To-do
 
-### Backend
-###### Functional
+### Functional
+* Rooms show question number
 * Players can quit room
-* Host can end/close room
-###### Non-functional
-* Use Redis instead of memory for storing room state
-* Expire rooms and clear from memory
-* Refactor code - RoomService is not ideal
-* Explore better user session storage - currently stored on client sessionStorage
-* Deploy
-
-### Frontend
-###### Functional
-* Users can quit rooms
-* Users can end room and see final scores
-* Show question number
 * Show results immediately after everyone has voted
-###### Non-functional
-* Use static generation for main page
-* Use server-side rendering for initial room loads
-* Deploy 
+* Host can kick players from room
+* Host can end room and display final scores
 
+### Non-functional
+###### Frontend
+* Use static generation for main page
+
+###### Backend
+* Use Redis instead of in-memory singleton for storing room state (more scalable)
+* Expire rooms and clear from memory (implementable with Redis TTL)
+* Explore better user session storage - currently stored on client sessionStorage
+* Use MongoDB and MongoDB Atlas for questions database (no relationships in data and no free MySQL database cloud hosting nearer Singapore - high latency now)
