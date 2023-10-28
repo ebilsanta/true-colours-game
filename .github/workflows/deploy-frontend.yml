@@ -6,8 +6,10 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'backend/**'
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy-frontend.yml'
+
 defaults:
   run:
     working-directory: frontend
