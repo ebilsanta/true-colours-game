@@ -1,9 +1,11 @@
 # True Colours Clone
 True Colours game clone using WebSockets for real-time gameplay.  
+Check it out here! https://true-colours-tl.vercel.app/
 ### Features
 * Real-time updates to client devices using WebSockets with SpringBoot
 * Consistent, mobile-friendly responsive UI using ChakraUI
 * Typesafe frontend development with Typescript
+* CI/CD pipeline for code changes to backend and frontend repositories
 
 Built with 
 
