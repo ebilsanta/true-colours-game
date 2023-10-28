@@ -49,13 +49,6 @@ public class RoomController {
         simpMessagingTemplate.convertAndSend("/topic/room-progress" + room.getRoomId(), room);
         return ResponseEntity.ok(room);
     }
-    @PostMapping("/question-results")
-    public ResponseEntity<Room> questionResults(@RequestBody HostRequest request) throws NotFoundException {
-        log.info("Question results: {}", request);
-        Room room = roomService.showQuestionResults(request.getRoomId());
-        simpMessagingTemplate.convertAndSend("/topic/room-progress" + room.getRoomId(), room);
-        return ResponseEntity.ok(room);
-    }
     @PostMapping("/room-results")
     public ResponseEntity<Room> roomResults(@RequestBody HostRequest request) throws NotFoundException {
         log.info("Room results: {}", request);

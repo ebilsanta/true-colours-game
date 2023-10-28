@@ -121,17 +121,13 @@ public class RoomService {
         room.markPlayerAnswered(playerId);
 
         if (allPlayersAnswered(room.getPlayersAnswered())) {
-            room.setStatus(RoomStatus.QUESTION_RESULTS);
+            return showQuestionResults(room);
         }
         RoomStorage.getInstance().setRoom(room);
         return room;
     }
 
-    public Room showQuestionResults(String roomId) throws NotFoundException {
-        if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
-            throw new NotFoundException("Room does not exist");
-        }
-        Room room = RoomStorage.getInstance().getRooms().get(roomId);
+    public Room showQuestionResults(Room room) throws NotFoundException {
         calculateScores(room);
         room.setStatus(RoomStatus.QUESTION_RESULTS);
         RoomStorage.getInstance().setRoom(room);
