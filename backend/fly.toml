@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for true-colours-backend on 2023-10-27T17:03:56+08:00
+# fly.toml app configuration file generated for true-colours-backend on 2023-10-28T14:35:10+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -6,9 +6,10 @@
 app = "true-colours-backend"
 primary_region = "sin"
 
+[build]
+
 [http_service]
   internal_port = 8080
-#  force_https = true
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
