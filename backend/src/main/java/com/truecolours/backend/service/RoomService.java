@@ -121,7 +121,7 @@ public class RoomService {
         room.markPlayerAnswered(playerId);
 
         if (allPlayersAnswered(room.getPlayersAnswered())) {
-            room.setStatus(RoomStatus.QUESTION_COMPLETED);
+            room.setStatus(RoomStatus.QUESTION_RESULTS);
         }
         RoomStorage.getInstance().setRoom(room);
         return room;
