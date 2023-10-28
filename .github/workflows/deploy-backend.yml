@@ -32,10 +32,5 @@ jobs:
       - name: Install flyctl via https://github.com/superfly/flyctl-actions
         uses: superfly/flyctl-actions/setup-flyctl@master
 
-      
       - name: Deploy our Spring Boot app to fly.io
-        run: |
-          flyctl deploy --remote-only \
-          --env "DATABASE_URL=${{ secrets.DATABASE_URL }}" \
-          --env "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}"\
-          --env "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}"
+        run: flyctl deploy --remote-only
