@@ -153,7 +153,6 @@ localhost:3000
 * Use static generation for main page
 
 ###### Backend
-* Use Redis instead of in-memory singleton for storing room state (more scalable)
+* Use Redis instead of in-memory singleton for storing room state (more scalable, but more complex with locks)
 * Expire rooms and clear from memory (implementable with Redis TTL)
 * Explore better user session storage - currently stored on client sessionStorage
-* Use MongoDB and MongoDB Atlas for questions database (no relationships in data and no free MySQL database cloud hosting nearer Singapore - high latency now)
