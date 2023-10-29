@@ -25,30 +25,35 @@ public class RoomService {
 
     public Room createRoom(Player player) {
         String roomId = UUID.randomUUID().toString();
-        List<Question> questions = questionRepository.getRandomQuestions();
-        List<String> questionsAsStrings = new ArrayList<>();
-        for (Question question: questions) {
-            questionsAsStrings.add(question.getQuestion());
-        }
+        List<String> questionsAsStrings = getQuestionsAsStrings();
         Room room = new Room(roomId, questionsAsStrings);
         addPlayer(room, player);
+        initializeRoom(room);
+        return room;
+    }
+    private List<String> getQuestionsAsStrings() {
+        List<Question> questions = questionRepository.getRandomQuestions();
+        List<String> questionsAsStrings = new ArrayList<>();
+        for (Question question : questions) {
+            questionsAsStrings.add(question.getQuestion());
+        }
+        return questionsAsStrings;
+    }
+    private void initializeRoom(Room room) {
         room.setStatus(RoomStatus.WAITING);
+        RoomStorage.getInstance().setRoom(room);
+    }
+    public Room joinRoom(Player player, String roomId) throws InvalidRoomException, NotFoundException {
+        Room room = getValidRoomForJoining(roomId);
+        addPlayer(room, player);
         RoomStorage.getInstance().setRoom(room);
         return room;
     }
-    // May need to return void. no point returning game
-    public Room joinRoom(Player player, String roomId) throws NotFoundException, InvalidRoomException {
-        if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
-            throw new NotFoundException("Room does not exist");
-        }
-        Room room = RoomStorage.getInstance().getRooms().get(roomId);
-
+    private Room getValidRoomForJoining(String roomId) throws InvalidRoomException, NotFoundException {
+        Room room = getRoomFromStorage(roomId);
         if (room.getStatus() != RoomStatus.WAITING) {
             throw new InvalidRoomException("Room is not valid anymore");
         }
-
-        addPlayer(room, player);
-        RoomStorage.getInstance().setRoom(room);
         return room;
     }
 
@@ -195,6 +200,14 @@ public class RoomService {
                 addedScores.put(playerId, 0);
             }
         }
+    }
+
+    private Room getRoomFromStorage(String roomId) throws NotFoundException {
+        Map<String, Room> rooms = RoomStorage.getInstance().getRooms();
+        if (!rooms.containsKey(roomId)) {
+            throw new NotFoundException("Room does not exist");
+        }
+        return rooms.get(roomId);
     }
 }
 
