@@ -29,6 +29,9 @@ export default function PlayerChoices({
     <VStack spacing={4} flex="1" overflowY="auto">
       {Object.keys(players).map((id) => {
         const playerId = Number(id);
+        if (playerId == currentPlayer) {
+          return null;
+        }
           return (
             <Stack
               key={id}
