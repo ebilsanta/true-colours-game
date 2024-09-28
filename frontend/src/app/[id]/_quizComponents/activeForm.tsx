@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Text, HStack, Button } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 import PlayerChoices from "./playerChoices";
 import PredictionChoices from "./predictionChoices";
 
@@ -43,7 +43,7 @@ const ActiveForm = ({
         Your prediction
       </Heading>
       <Text fontSize="sm" pb={4}>
-        How many votes do you think you'll get?
+        How many votes do you think you&apos;ll get?
       </Text>
       <PredictionChoices
         prediction={prediction}

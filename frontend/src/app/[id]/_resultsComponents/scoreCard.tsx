@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardBody,
-  Flex,
-  Box,
-  Text,
-  Badge,
-  Stack,
-} from "@chakra-ui/react";
+import { Card, Flex, Box, Text, Badge } from "@chakra-ui/react";
 
 type ScoreCardProps = {
   name: string;
@@ -18,11 +10,15 @@ type ScoreCardProps = {
 
 type AddedScoreMapping = {
   [key: number]: string;
-}
+};
 
 const predictionMapping = ["None", "Some", "Most"];
 const predictionColorMapping = ["yellow", "orange", "red"];
-const addedScoreColorMapping: AddedScoreMapping = { 0: "red", 1: "yellow", 3: "green" };
+const addedScoreColorMapping: AddedScoreMapping = {
+  0: "red",
+  1: "yellow",
+  3: "green",
+};
 
 export default function ScoreCard({
   name,
@@ -35,16 +31,24 @@ export default function ScoreCard({
       <Flex px={4} py={2}>
         <Text fontWeight="bold" flexGrow={1}>
           {name}
-          <Badge ml="1" colorScheme={predictionColorMapping[prediction]} variant="outline">
+          <Badge
+            ml="1"
+            colorScheme={predictionColorMapping[prediction]}
+            variant="outline"
+          >
             {predictionMapping[prediction]}
           </Badge>
         </Text>
 
         <Box>
-          <Badge mr="2" colorScheme={addedScoreColorMapping[addedScore]} variant="solid">
+          <Badge
+            mr="2"
+            colorScheme={addedScoreColorMapping[addedScore]}
+            variant="solid"
+          >
             +{addedScore}
           </Badge>
-            {score}
+          {score}
         </Box>
       </Flex>
     </Card>

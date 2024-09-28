@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
 import theme from "./styles/theme";
-import { ColorModeSwitcher } from './components/ColorModeSwitcher'
+import { ColorModeSwitcher } from "./components/ColorModeSwitcher";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Providers>
-          <ColorModeSwitcher/>
+          <ColorModeSwitcher />
           <Box display="flex" justifyContent="center">
             {children}
           </Box>

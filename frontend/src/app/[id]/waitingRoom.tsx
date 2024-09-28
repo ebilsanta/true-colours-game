@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardBody,
-  Button,
-  Flex,
-  Box,
-  Text,
-  Badge,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, Box, Text, Stack } from "@chakra-ui/react";
 
 import PlayerCard from "./_waitingRoomComponents/playerCard";
 import CopyToClipboardButton from "./_waitingRoomComponents/copyToClipboardButton";

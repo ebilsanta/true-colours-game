@@ -1,5 +1,4 @@
 export const RoomAPI = {
-  
   handleFetchError: (response: Response) => {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
@@ -9,13 +8,16 @@ export const RoomAPI = {
 
   joinRoom: async function (username: string, urlRoomId: string) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/join`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: username, roomId: urlRoomId }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/join`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: username, roomId: urlRoomId }),
+        }
+      );
 
       this.handleFetchError(response);
 
@@ -28,13 +30,16 @@ export const RoomAPI = {
 
   nextQuestion: async function (urlRoomId: string) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/next-question`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ roomId: urlRoomId }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/next-question`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ roomId: urlRoomId }),
+        }
+      );
 
       this.handleFetchError(response);
 
@@ -45,7 +50,12 @@ export const RoomAPI = {
     }
   },
 
-  vote: async function (urlRoomId: string, currentPlayer: number, prediction: number, selectedPlayers: { [key: number]: number }) {
+  vote: async function (
+    urlRoomId: string,
+    currentPlayer: number,
+    prediction: number,
+    selectedPlayers: { [key: number]: number }
+  ) {
     try {
       const votes = [];
       for (const [key, value] of Object.entries(selectedPlayers)) {
@@ -54,19 +64,22 @@ export const RoomAPI = {
         }
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/answer`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          roomId: urlRoomId,
-          playerId: currentPlayer,
-          prediction,
-          votedPlayer1Id: votes[0],
-          votedPlayer2Id: votes[1]
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/answer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            roomId: urlRoomId,
+            playerId: currentPlayer,
+            prediction,
+            votedPlayer1Id: votes[0],
+            votedPlayer2Id: votes[1],
+          }),
+        }
+      );
 
       this.handleFetchError(response);
 
@@ -79,15 +92,18 @@ export const RoomAPI = {
 
   showResults: async function (urlRoomId: string) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/question-results`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          roomId: urlRoomId,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/question-results`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            roomId: urlRoomId,
+          }),
+        }
+      );
 
       this.handleFetchError(response);
 
@@ -100,9 +116,12 @@ export const RoomAPI = {
 
   getRoomData: async function (urlRoomId: string) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/${urlRoomId}`, {
-        method: "GET"
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/${urlRoomId}`,
+        {
+          method: "GET",
+        }
+      );
 
       this.handleFetchError(response);
 
@@ -114,13 +133,16 @@ export const RoomAPI = {
   },
   createRoom: async function (username: string) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/room/create`,  {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({name: username})
-      })
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: username }),
+        }
+      );
 
       this.handleFetchError(response);
 
@@ -129,6 +151,5 @@ export const RoomAPI = {
       console.error("Error creating room:", error);
       throw error;
     }
-  }
-}
-
+  },
+};

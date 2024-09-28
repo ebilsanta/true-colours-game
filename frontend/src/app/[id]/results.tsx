@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import VoteCard from "./_resultsComponents/voteCard";
 import ScoreCard from "./_resultsComponents/scoreCard";
 
