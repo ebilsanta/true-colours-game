@@ -14,7 +14,7 @@ export const RoomAPI = {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ player: { name: username }, roomId: urlRoomId }),
+        body: JSON.stringify({ name: username, roomId: urlRoomId }),
       });
 
       this.handleFetchError(response);
