@@ -20,7 +20,6 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class RoomService {
-    // May need to store room in database?
     private QuestionRepository questionRepository;
 
     public Room createRoom(Player player) {

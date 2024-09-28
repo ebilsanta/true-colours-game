@@ -1,5 +1,7 @@
 package com.truecolours.backend.controller;
 
+import com.truecolours.backend.controller.dto.AnswerRequest;
+import com.truecolours.backend.controller.dto.CreateRoomRequest;
 import com.truecolours.backend.controller.dto.HostRequest;
 import com.truecolours.backend.controller.dto.JoinRequest;
 import com.truecolours.backend.exception.*;
@@ -24,14 +26,15 @@ public class RoomController {
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     @PostMapping("/create")
-    public ResponseEntity<Room> start(@RequestBody Player player) {
+    public ResponseEntity<Room> create(@RequestBody CreateRoomRequest request) {
+        Player player = new Player(request.getName());
         log.info("Create room request: {}", player);
         return ResponseEntity.ok(roomService.createRoom(player));
     }
     @PostMapping("/join")
     public ResponseEntity<Room> join(@RequestBody JoinRequest request) throws NotFoundException, InvalidRoomException {
         log.info("Join request: {}", request);
-        Room room = roomService.joinRoom(request.getPlayer(), request.getRoomId());
+        Room room = roomService.joinRoom(new Player(request.getName()), request.getRoomId());
         simpMessagingTemplate.convertAndSend("/topic/room-progress" + room.getRoomId(), room);
         return ResponseEntity.ok(room);
     }
@@ -43,9 +46,16 @@ public class RoomController {
         return ResponseEntity.ok(room);
     }
     @PostMapping("/answer")
-    public ResponseEntity<Room> answer(@RequestBody Answer request) throws NotFoundException {
+    public ResponseEntity<Room> answer(@RequestBody AnswerRequest request) throws NotFoundException {
         log.info("Answer: {}", request);
-        Room room = roomService.answer(request);
+        Answer answer = new Answer(
+                request.getRoomId(),
+                request.getPlayerId(),
+                request.getPrediction(),
+                request.getVotedPlayer1Id(),
+                request.getVotedPlayer2Id()
+        );
+        Room room = roomService.answer(answer);
         simpMessagingTemplate.convertAndSend("/topic/room-progress" + room.getRoomId(), room);
         return ResponseEntity.ok(room);
     }

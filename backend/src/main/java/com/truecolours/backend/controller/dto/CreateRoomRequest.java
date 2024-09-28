@@ -4,7 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class HostRequest {
-    @NotBlank(message = "roomId cannot be blank")
-    private String roomId;
+public class CreateRoomRequest {
+
+    @NotBlank(message = "name cannot be blank")
+    private String name;
 }
