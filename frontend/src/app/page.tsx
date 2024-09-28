@@ -100,7 +100,7 @@ export default function Home() {
           do the thing in the question.
         </Text>
         <Text>
-          If they're really likely, you can give them <strong>both</strong>{" "}
+          If they&apos;re really likely, you can give them <strong>both</strong>{" "}
           votes.
         </Text>
         <Text>
@@ -109,11 +109,11 @@ export default function Home() {
           votes.
         </Text>
         <Text>
-          You get <strong>3</strong> points if you correctly predict you'll get{" "}
+          You get <strong>3</strong> points if you correctly predict you&apos;ll get{" "}
           <strong>none</strong> or <strong>most</strong> votes.
         </Text>
         <Text>
-          You get <strong>1</strong> point if you correctly predict you'll get{" "}
+          You get <strong>1</strong> point if you correctly predict you&apos;ll get{" "}
           <strong>some</strong> votes.
         </Text>
         <Text>And none if you predicted wrongly...</Text>
