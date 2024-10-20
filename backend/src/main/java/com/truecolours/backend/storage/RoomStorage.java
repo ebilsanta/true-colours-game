@@ -4,12 +4,13 @@ import com.truecolours.backend.model.Room;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RoomStorage {
-    private static Map<String, Room> rooms;
+    private static Map<Integer, Room> rooms;
     private static RoomStorage instance;
     private RoomStorage() {
-        rooms = new HashMap<>();
+        rooms = new ConcurrentHashMap<>();
     }
 
     public static synchronized RoomStorage getInstance() {
@@ -19,7 +20,7 @@ public class RoomStorage {
         return instance;
     }
 
-    public Map<String, Room> getRooms() {
+    public Map<Integer, Room> getRooms() {
         return rooms;
     }
 

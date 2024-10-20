@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class HostRequest {
     @NotBlank(message = "roomId cannot be blank")
-    private String roomId;
+    private int roomId;
 }

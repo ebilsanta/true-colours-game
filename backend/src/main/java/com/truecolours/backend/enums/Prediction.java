@@ -1,4 +1,4 @@
-package com.truecolours.backend.model;
+package com.truecolours.backend.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

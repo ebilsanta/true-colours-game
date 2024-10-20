@@ -28,7 +28,7 @@ public class RoomServiceTests {
 
      @Test
     public void testAddPlayer() {
-        Player player = new Player();
+        Player player = new Player("abc");
         Map<Integer, Player> players = new HashMap<>();
         Map<Integer, Boolean> playersAnswered = new HashMap<>();
         Map<Integer, Integer> scores = new HashMap<>();
@@ -77,7 +77,7 @@ public class RoomServiceTests {
     public void testPlayerExists() {
         // Arrange
         Map<Integer, Player> players = new HashMap<>();
-        players.put(1, new Player());
+        players.put(1, new Player("abc"));
         RoomService roomService = new RoomService(null);
 
         // Act

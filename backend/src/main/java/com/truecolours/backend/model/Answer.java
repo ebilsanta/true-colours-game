@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Answer {
 
-    private String roomId;
+    private int roomId;
     private int playerId;
     private int prediction;
     private int votedPlayer1Id;

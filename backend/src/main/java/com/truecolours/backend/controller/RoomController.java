@@ -68,7 +68,7 @@ public class RoomController {
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<Room> getRoom(@PathVariable("roomId") String roomId) throws NotFoundException {
+    public ResponseEntity<Room> getRoom(@PathVariable("roomId") int roomId) throws NotFoundException {
         log.info("Room request: {}", roomId);
         Room room = roomService.getRoom(roomId);
         return ResponseEntity.ok(room);

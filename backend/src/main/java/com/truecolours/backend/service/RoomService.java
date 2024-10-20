@@ -6,7 +6,7 @@ import com.truecolours.backend.exception.InvalidRoomException;
 import com.truecolours.backend.model.Answer;
 import com.truecolours.backend.model.Player;
 import com.truecolours.backend.model.Room;
-import com.truecolours.backend.model.RoomStatus;
+import com.truecolours.backend.enums.RoomStatus;
 import com.truecolours.backend.repository.QuestionRepository;
 import com.truecolours.backend.storage.RoomStorage;
 import lombok.AllArgsConstructor;
@@ -15,15 +15,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @AllArgsConstructor
 public class RoomService {
     private QuestionRepository questionRepository;
+    private final ConcurrentHashMap<Integer, Object> locks = new ConcurrentHashMap<>();
 
     public Room createRoom(Player player) {
-        String roomId = UUID.randomUUID().toString();
+        int roomId = (int)(Math.random() * 900000) + 100000;
         List<String> questionsAsStrings = getQuestionsAsStrings();
         Room room = new Room(roomId, questionsAsStrings);
         addPlayer(room, player);
@@ -42,13 +43,16 @@ public class RoomService {
         room.setStatus(RoomStatus.WAITING);
         RoomStorage.getInstance().setRoom(room);
     }
-    public Room joinRoom(Player player, String roomId) throws InvalidRoomException, NotFoundException {
-        Room room = getValidRoomForJoining(roomId);
-        addPlayer(room, player);
-        RoomStorage.getInstance().setRoom(room);
-        return room;
+    public Room joinRoom(Player player, int roomId) throws InvalidRoomException, NotFoundException {
+        Object roomLock = locks.computeIfAbsent(roomId, k -> new Object());
+        synchronized (roomLock) {
+            Room room = getValidRoomForJoining(roomId);
+            addPlayer(room, player);
+            RoomStorage.getInstance().setRoom(room);
+            return room;
+        }
     }
-    private Room getValidRoomForJoining(String roomId) throws InvalidRoomException, NotFoundException {
+    private Room getValidRoomForJoining(int roomId) throws InvalidRoomException, NotFoundException {
         Room room = getRoomFromStorage(roomId);
         if (room.getStatus() != RoomStatus.WAITING) {
             throw new InvalidRoomException("Room is not valid anymore");
@@ -76,17 +80,20 @@ public class RoomService {
         room.setNewPlayerId(newPlayerId+1);
     }
 
-    public Room nextQuestion(String roomId) throws NotFoundException {
+    public Room nextQuestion(int roomId) throws NotFoundException {
         if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
             throw new NotFoundException("Room does not exist");
         }
-        Room room = RoomStorage.getInstance().getRooms().get(roomId);
-        resetVotes(room);
-        resetPlayersAnswered(room);
-        room.setQuestionNumber(room.getQuestionNumber()+1);
-        room.setStatus(RoomStatus.QUESTION_IN_PROGRESS);
-        RoomStorage.getInstance().setRoom(room);
-        return room;
+        Object roomLock = locks.computeIfAbsent(roomId, k -> new Object());
+        synchronized(roomLock) {
+            Room room = RoomStorage.getInstance().getRooms().get(roomId);
+            resetVotes(room);
+            resetPlayersAnswered(room);
+            room.setQuestionNumber(room.getQuestionNumber()+1);
+            room.setStatus(RoomStatus.QUESTION_IN_PROGRESS);
+            RoomStorage.getInstance().setRoom(room);
+            return room;
+        }
     }
 
     public void resetVotes(Room room) {
@@ -102,33 +109,36 @@ public class RoomService {
     }
 
     public Room answer(Answer answer) throws NotFoundException {
-        String roomId = answer.getRoomId();
+        int roomId = answer.getRoomId();
         int playerId = answer.getPlayerId();
         int votedPlayer1Id = answer.getVotedPlayer1Id();
         int votedPlayer2Id = answer.getVotedPlayer2Id();
         if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
             throw new NotFoundException("Room does not exist");
         }
-        Room room = RoomStorage.getInstance().getRooms().get(roomId);
+        Object roomLock = locks.computeIfAbsent(roomId, k -> new Object());
+        synchronized (roomLock) {
+            Room room = RoomStorage.getInstance().getRooms().get(roomId);
 
-        Map<Integer, Player> players = room.getPlayers();
-        if (!playerExists(players, playerId)) {
-            throw new NotFoundException("Player does not exist");
-        }
+            Map<Integer, Player> players = room.getPlayers();
+            if (!playerExists(players, playerId)) {
+                throw new NotFoundException("Player does not exist");
+            }
 
-        if (!playerExists(players, votedPlayer1Id) || !playerExists(players, votedPlayer2Id)) {
-            throw new NotFoundException("Voted player does not exist");
-        }
-        room.addPrediction(playerId, answer.getPrediction());
-        room.addVote(playerId, votedPlayer1Id);
-        room.addVote(playerId, votedPlayer2Id);
-        room.markPlayerAnswered(playerId);
+            if (!playerExists(players, votedPlayer1Id) || !playerExists(players, votedPlayer2Id)) {
+                throw new NotFoundException("Voted player does not exist");
+            }
+            room.addPrediction(playerId, answer.getPrediction());
+            room.addVote(playerId, votedPlayer1Id);
+            room.addVote(playerId, votedPlayer2Id);
+            room.markPlayerAnswered(playerId);
 
-        if (allPlayersAnswered(room.getPlayersAnswered())) {
-            return showQuestionResults(room);
+            if (allPlayersAnswered(room.getPlayersAnswered())) {
+                return showQuestionResults(room);
+            }
+            RoomStorage.getInstance().setRoom(room);
+            return room;
         }
-        RoomStorage.getInstance().setRoom(room);
-        return room;
     }
 
     public Room showQuestionResults(Room room) throws NotFoundException {
@@ -138,7 +148,7 @@ public class RoomService {
         return room;
     }
 
-    public Room showRoomResults(String roomId) throws NotFoundException {
+    public Room showRoomResults(int roomId) throws NotFoundException {
         if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
             throw new NotFoundException("Room does not exist");
         }
@@ -148,7 +158,7 @@ public class RoomService {
         return room;
     }
 
-    public Room getRoom(String roomId) throws NotFoundException {
+    public Room getRoom(int roomId) throws NotFoundException {
         if (!RoomStorage.getInstance().getRooms().containsKey(roomId)) {
             throw new NotFoundException("Room does not exist");
         }
@@ -201,12 +211,16 @@ public class RoomService {
         }
     }
 
-    private Room getRoomFromStorage(String roomId) throws NotFoundException {
-        Map<String, Room> rooms = RoomStorage.getInstance().getRooms();
+    private Room getRoomFromStorage(int roomId) throws NotFoundException {
+        Map<Integer, Room> rooms = RoomStorage.getInstance().getRooms();
         if (!rooms.containsKey(roomId)) {
             throw new NotFoundException("Room does not exist");
         }
         return rooms.get(roomId);
+    }
+
+    public void removeLock(int roomId) {
+        locks.remove(roomId);
     }
 }
 

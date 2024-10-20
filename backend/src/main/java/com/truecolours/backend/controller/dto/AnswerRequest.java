@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class AnswerRequest {
     @NotBlank(message = "roomId cannot be blank")
-    private String roomId;
+    private int roomId;
 
     @NotBlank(message = "playerId cannot be blank")
     private int playerId;
