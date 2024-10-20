@@ -53,7 +53,7 @@ declare global {
     handleAddPlayer: (player: number) => void;
     handleRemovePlayer: (player: number) => void;
     handlePredictionSelect: (choice: number) => void;
-    handleJoinRoom: (username: string) => void;
+    handleJoinRoom: (username: string) => Promise<void>;
     handleNextQuestion: () => void;
     handleVote: () => void;
     handleShowResults: () => void;

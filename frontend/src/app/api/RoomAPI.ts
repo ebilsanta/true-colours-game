@@ -18,7 +18,7 @@ export const RoomAPI = {
           body: JSON.stringify({ name: username, roomId: urlRoomId }),
         }
       );
-
+      
       this.handleFetchError(response);
 
       return await response.json();

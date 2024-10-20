@@ -44,17 +44,18 @@ const useRoomState = (): RoomState => {
     }
   };
 
-  const handleJoinRoom = (username: string) => {
-    RoomAPI.joinRoom(username, urlRoomId)
-      .then((data) => {
-        setCurrentPlayer(data.newPlayerId - 1);
-        setRoomState(data);
-        sessionStorage.setItem(
-          "trueColoursData",
-          JSON.stringify({ roomId: urlRoomId, playerId: data.newPlayerId - 1 })
-        );
-      })
-      .catch((err) => console.log(err));
+  const handleJoinRoom = async (username: string): Promise<void> => {
+    try {
+      const data = await RoomAPI.joinRoom(username, urlRoomId);
+      setCurrentPlayer(data.newPlayerId - 1);
+      setRoomState(data);
+      sessionStorage.setItem(
+        "trueColoursData",
+        JSON.stringify({ roomId: urlRoomId, playerId: data.newPlayerId - 1 })
+      );
+    } catch (err) {
+      throw err;
+    }
   };
 
   const handleNextQuestion = () => {
