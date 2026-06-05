@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   AbsoluteCenter,
   Button,
+  ButtonGroup,
   FormControl,
   FormLabel,
   Input,
@@ -17,9 +18,12 @@ import { useRouter } from "next/navigation";
 
 import { RoomAPI } from "./api/RoomAPI";
 
+type GameMode = "classic" | "spicy";
+
 export default function Home() {
   const [username, setUsername] = useState("");
   const [roomId, setRoomId] = useState("");
+  const [gameMode, setGameMode] = useState<GameMode>("classic");
   const [isLoading, setIsLoading] = useState(false);
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(event.target.value);
@@ -27,9 +31,9 @@ export default function Home() {
     setRoomId(event.target.value);
   const router = useRouter();
 
-  const createRoom = (username: string) => {
+  const createRoom = (username: string, tag: GameMode) => {
     setIsLoading(true);
-    RoomAPI.createRoom(username)
+    RoomAPI.createRoom(username, tag)
       .then((data) => {
         console.log(data);
         sessionStorage.setItem(
@@ -61,9 +65,30 @@ export default function Home() {
             autoComplete="off"
           />
         </FormControl>
+        <FormControl>
+          <FormLabel pl={2}>Game mode</FormLabel>
+          <ButtonGroup isAttached width="100%">
+            <Button
+              flex={1}
+              variant={gameMode === "classic" ? "solid" : "outline"}
+              colorScheme={gameMode === "classic" ? "teal" : "gray"}
+              onClick={() => setGameMode("classic")}
+            >
+              Classic
+            </Button>
+            <Button
+              flex={1}
+              variant={gameMode === "spicy" ? "solid" : "outline"}
+              colorScheme={gameMode === "spicy" ? "teal" : "gray"}
+              onClick={() => setGameMode("spicy")}
+            >
+              Spicy
+            </Button>
+          </ButtonGroup>
+        </FormControl>
         <Button
           alignSelf="stretch"
-          onClick={() => createRoom(username)}
+          onClick={() => createRoom(username, gameMode)}
           isLoading={isLoading}
         >
           Create room

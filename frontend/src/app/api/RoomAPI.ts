@@ -131,7 +131,7 @@ export const RoomAPI = {
       throw error;
     }
   },
-  createRoom: async function (username: string) {
+  createRoom: async function (username: string, tag: string = "classic") {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/room/create`,
@@ -140,7 +140,7 @@ export const RoomAPI = {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: username }),
+          body: JSON.stringify({ name: username, tag }),
         }
       );
 
