@@ -6,6 +6,7 @@ import com.truecolours.backend.exception.InvalidRoomException;
 import com.truecolours.backend.model.Answer;
 import com.truecolours.backend.model.Player;
 import com.truecolours.backend.model.Room;
+import com.truecolours.backend.enums.QuestionTag;
 import com.truecolours.backend.enums.RoomStatus;
 import com.truecolours.backend.repository.QuestionRepository;
 import com.truecolours.backend.storage.RoomStorage;
@@ -23,16 +24,17 @@ public class RoomService {
     private QuestionRepository questionRepository;
     private final ConcurrentHashMap<Integer, Object> locks = new ConcurrentHashMap<>();
 
-    public Room createRoom(Player player) {
+    public Room createRoom(Player player, String tag) {
         int roomId = (int)(Math.random() * 900000) + 100000;
-        List<String> questionsAsStrings = getQuestionsAsStrings();
+        List<String> questionsAsStrings = getQuestionsAsStrings(tag);
         Room room = new Room(roomId, questionsAsStrings);
         addPlayer(room, player);
         initializeRoom(room);
         return room;
     }
-    private List<String> getQuestionsAsStrings() {
-        List<Question> questions = questionRepository.getRandomQuestions();
+    private List<String> getQuestionsAsStrings(String tag) {
+        String questionTag = QuestionTag.fromValue(tag).getValue();
+        List<Question> questions = questionRepository.getRandomQuestionsByTag(questionTag);
         List<String> questionsAsStrings = new ArrayList<>();
         for (Question question : questions) {
             questionsAsStrings.add(question.getQuestion());

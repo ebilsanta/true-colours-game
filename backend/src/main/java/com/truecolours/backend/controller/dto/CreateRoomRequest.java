@@ -8,4 +8,6 @@ public class CreateRoomRequest {
 
     @NotBlank(message = "name cannot be blank")
     private String name;
+
+    private String tag = "classic";
 }

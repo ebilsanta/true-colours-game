@@ -10,6 +10,8 @@ public class Question {
 
     private String question;
 
+    private String tag;
+
     public Integer getId() {
         return id;
     }
@@ -20,5 +22,13 @@ public class Question {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

@@ -29,7 +29,7 @@ public class RoomController {
     public ResponseEntity<Room> create(@RequestBody CreateRoomRequest request) {
         Player player = new Player(request.getName());
         log.info("Create room request: {}", player);
-        return ResponseEntity.ok(roomService.createRoom(player));
+        return ResponseEntity.ok(roomService.createRoom(player, request.getTag()));
     }
     @PostMapping("/join")
     public ResponseEntity<Room> join(@RequestBody JoinRequest request) throws NotFoundException, InvalidRoomException {
