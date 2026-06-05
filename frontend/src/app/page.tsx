@@ -38,7 +38,7 @@ export default function Home() {
         console.log(data);
         sessionStorage.setItem(
           "trueColoursData",
-          JSON.stringify({ roomId: data.roomId, playerId: 0 })
+          JSON.stringify({ roomId: data.roomId, playerId: 0 }),
         );
         router.push(`${data.roomId}`);
       })
@@ -79,7 +79,7 @@ export default function Home() {
             <Button
               flex={1}
               variant={gameMode === "spicy" ? "solid" : "outline"}
-              colorScheme={gameMode === "spicy" ? "teal" : "gray"}
+              colorScheme={gameMode === "spicy" ? "red" : "gray"}
               onClick={() => setGameMode("spicy")}
             >
               Spicy
@@ -134,12 +134,12 @@ export default function Home() {
           votes.
         </Text>
         <Text>
-          You get <strong>3</strong> points if you correctly predict you&apos;ll get{" "}
-          <strong>none</strong> or <strong>most</strong> votes.
+          You get <strong>3</strong> points if you correctly predict you&apos;ll
+          get <strong>none</strong> or <strong>most</strong> votes.
         </Text>
         <Text>
-          You get <strong>1</strong> point if you correctly predict you&apos;ll get{" "}
-          <strong>some</strong> votes.
+          You get <strong>1</strong> point if you correctly predict you&apos;ll
+          get <strong>some</strong> votes.
         </Text>
         <Text>And none if you predicted wrongly...</Text>
       </Stack>
